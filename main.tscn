@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvjy2qip6h861"]
+
+[ext_resource type="Texture2D" uid="uid://dq0dsrhg685ks" path="res://sprites/ship.png" id="1_cy0hf"]
+[ext_resource type="Script" path="res://levelmanager.gd" id="1_ekqsy"]
+[ext_resource type="Script" path="res://scripts/ship.gd" id="1_okubj"]
+[ext_resource type="PackedScene" uid="uid://coao0ps5ohvwv" path="res://asteroid.tscn" id="3_c7v3e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66nc8"]
+size = Vector2(14.4, 15.9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x0t2s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cy0hf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_ekqsy")
+
+[node name="ship" type="CharacterBody2D" parent="."]
+position = Vector2(566, 293)
+scale = Vector2(3, 3)
+collision_mask = 2
+motion_mode = 1
+slide_on_ceiling = false
+script = ExtResource("1_okubj")
+max_health = 50
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ship"]
+position = Vector2(3.8147e-06, -0.0500031)
+shape = SubResource("RectangleShape2D_66nc8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ship"]
+scale = Vector2(0.909, 1)
+sprite_frames = SubResource("SpriteFrames_x0t2s")
+
+[node name="gun" type="Node2D" parent="ship"]
+position = Vector2(0, -8.5)
+rotation = -1.5708
+
+[node name="Timer" type="Timer" parent="ship"]
+wait_time = 0.15
+
+[node name="asteroid" parent="." instance=ExtResource("3_c7v3e")]
+position = Vector2(916, 145)
+damage = 2
+
+[node name="asteroid2" parent="." instance=ExtResource("3_c7v3e")]
+position = Vector2(248, 526)
+
+[node name="asteroid3" parent="." instance=ExtResource("3_c7v3e")]
+position = Vector2(1025, 526)
+
+[node name="asteroid4" parent="." instance=ExtResource("3_c7v3e")]
+position = Vector2(638, 486)
+
+[node name="asteroid5" parent="." instance=ExtResource("3_c7v3e")]
+position = Vector2(208, 145)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 63.0
+offset_top = 593.0
+offset_right = 341.0
+offset_bottom = 664.0
+text = "SCORE : 0"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 916.0
+offset_top = 593.0
+offset_right = 1194.0
+offset_bottom = 664.0
+text = "HEALTH: "
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+offset_left = 916.0
+offset_top = 623.0
+offset_right = 1194.0
+offset_bottom = 694.0
+text = "LIVES: 0"
+
+[connection signal="timeout" from="ship/Timer" to="ship" method="_on_timer_timeout"]

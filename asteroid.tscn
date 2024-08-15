@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://coao0ps5ohvwv"]
+
+[ext_resource type="Texture2D" uid="uid://de2ge12rvu3py" path="res://sprites/rock.png" id="1_81bto"]
+[ext_resource type="Script" path="res://asteroid.gd" id="1_cp1yb"]
+[ext_resource type="PackedScene" uid="uid://crndkuae3gk8f" path="res://death_particles.tscn" id="3_ilbpg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsea2"]
+radius = 8.00062
+
+[node name="asteroid" type="StaticBody2D"]
+scale = Vector2(5, 5)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_cp1yb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xsea2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_81bto")
+
+[node name="death_particles" parent="." instance=ExtResource("3_ilbpg")]

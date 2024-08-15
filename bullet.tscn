@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsxl4r88ur2ti"]
+
+[ext_resource type="Texture2D" uid="uid://dy1e874c2hg3" path="res://sprites/bullet.png" id="1_ckyoi"]
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_eilyy"]
+
+[node name="bullet" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_eilyy")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ckyoi")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(10, 0)
+collision_mask = 2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
